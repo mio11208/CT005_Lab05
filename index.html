@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lê Phan Chấn Nguyên - Portfolio CT005 Lab 05</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --primary-light: #0055a5;
+            --accent: #0077cc;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        /* Hero Header */
+        header.hero {
+            background: linear-gradient(135deg, #002244 0%, var(--primary) 50%, var(--accent) 100%);
+            color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 51, 102, 0.25);
+            margin-bottom: 35px;
+        }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .hero p.subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .badge-list {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13.5px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        /* Section Cards */
+        .card {
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 14.5px;
+            margin-bottom: 20px;
+        }
+        /* Product 1: PDF Card */
+        .pdf-preview-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .pdf-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .pdf-icon {
+            font-size: 36px;
+        }
+        .pdf-text h4 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .pdf-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+        .btn-yt {
+            background: #ff0000;
+            color: #ffffff;
+        }
+        .btn-yt:hover {
+            background: #cc0000;
+        }
+        /* Product 2: Infographic */
+        .infographic-wrapper {
+            display: flex;
+            justify-content: center;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .infographic-wrapper img {
+            max-width: 100%;
+            height: auto;
+            max-height: 850px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        /* Product 3: Video */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            height: 520px;
+            margin: 0 auto 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-actions {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        /* Info & Copyright Box */
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 6px;
+            font-size: 13.5px;
+            color: #334155;
+            margin-top: 15px;
+        }
+        .info-box strong {
+            color: var(--primary);
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 10px;
+            color: var(--text-muted);
+            font-size: 13.5px;
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile & Course Banner -->
+        <header class="hero">
+            <h1>Lê Phan Chấn Nguyên</h1>
+            <p class="subtitle">Báo Cáo Thực Hành Lab 05 – Tạo, Quản Lý Và Chia Sẻ Nội Dung Số</p>
+            <div class="badge-list">
+                <span class="badge">MSSV: B2605819</span>
+                <span class="badge">Lớp: CT005D06</span>
+                <span class="badge">Học phần: CT005 – Nền tảng Công nghệ số</span>
+                <span class="badge">Đại học Cần Thơ</span>
+            </div>
+        </header>
+
+        <!-- SẢN PHẨM 1: BÁO CÁO NHÓM PDF -->
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">📄 Sản phẩm 1: Báo cáo văn bản & Cộng tác nhóm</h2>
+                <span class="card-badge">Nhiệm vụ 1.2</span>
+            </div>
+            <p class="card-desc">Tài liệu văn bản số hoàn chỉnh (định dạng 1 trang chuẩn) về chủ đề "Ứng dụng công nghệ số trong học tập", được thực hiện cộng tác nhóm qua chế độ Đề xuất (Suggesting), Nhận xét (Comments) và theo dõi Lịch sử phiên bản (Version History) trên Google Docs.</p>
+            
+            <div class="pdf-preview-box">
+                <div class="pdf-info">
+                    <div class="pdf-icon">📑</div>
+                    <div class="pdf-text">
+                        <h4>Lab05_Ex1.2.pdf</h4>
+                        <p>Dung lượng: ~214 KB | Khổ giấy: A4 (1 trang) | Định dạng: Chuẩn Times New Roman 12pt</p>
+                    </div>
+                </div>
+                <a href="./Lab05_Ex1.2.pdf" target="_blank" class="btn btn-primary">
+                    📥 Xem / Tải file PDF
+                </a>
+            </div>
+
+            <div class="info-box">
+                <strong>Ghi chú bản quyền:</strong> Nội dung văn bản tham khảo từ Google Gemini, hình ảnh từ Unsplash (Unsplash license). Đã minh chứng lịch sử cộng tác nhóm.
+            </div>
+        </section>
+
+        <!-- SẢN PHẨM 2: INFOGRAPHIC -->
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">📊 Sản phẩm 2: Infographic Canva AI</h2>
+                <span class="card-badge">Nhiệm vụ 2.1</span>
+            </div>
+            <p class="card-desc">Infographic tổng hợp 4 lợi ích cốt lõi của công nghệ số đối với người học trong kỷ nguyên số. Thiết kế bằng Canva AI Magic Design với tông màu chủ đạo Xanh dương – Trắng nhất quán.</p>
+            
+            <div class="infographic-wrapper">
+                <img src="./Lab05_Ex2.1.png" alt="Infographic Lợi ích công nghệ số trong học tập" />
+            </div>
+
+            <div class="info-box">
+                <strong>Ghi chú bản quyền:</strong> <em>Infographic tạo bởi Canva AI, hình ảnh từ Unsplash (Unsplash license).</em>
+            </div>
+        </section>
+
+        <!-- SẢN PHẨM 3: VIDEO YOUTUBE -->
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">🎬 Sản phẩm 3: Video ngắn YouTube</h2>
+                <span class="card-badge">Nhiệm vụ 2.2</span>
+            </div>
+            <p class="card-desc">Video ngắn tóm tắt ứng dụng và lợi ích của công nghệ số, thời lượng dưới 1 phút, sử dụng tài nguyên video/âm thanh chuẩn bản quyền miễn phí.</p>
+            
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/_4PuP0NxEi8?rel=0&modestbranding=1" 
+                    title="Video ngắn Lab 5 - Lê Phan Chấn Nguyên" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="video-actions">
+                <a href="https://youtu.be/_4PuP0NxEi8?si=SC3E-zICmzWsVCvj" target="_blank" rel="noopener noreferrer" class="btn btn-yt">
+                    ▶ Xem trực tiếp trên YouTube
+                </a>
+            </div>
+
+            <div class="info-box">
+                <strong>Ghi chú bản quyền:</strong> <em>Video tạo bởi CapCut, tài liệu từ Pexels/FreeSound (CC0).</em>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2026 Lê Phan Chấn Nguyên. Phát hành theo giấy phép <a href="./LICENSE.md">MIT License</a>.</p>
+            <p>Học phần CT005 Nền tảng Công nghệ số – Trường Đại học Cần Thơ.</p>
+        </footer>
+    </div>
+</body>
+</html>
