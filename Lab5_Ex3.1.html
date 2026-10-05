@@ -99,33 +99,35 @@
             height: 520px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             background: #000;
-        }
-        .video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
         }
         .video-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            display: block;
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: none;
         }
         .btn-group {
             display: flex;
             gap: 12px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 18px;
             flex-wrap: wrap;
         }
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 11px 22px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 14.5px;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
@@ -135,6 +137,7 @@
         .btn-yt {
             background-color: #ff0000;
             color: #ffffff;
+            box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
         }
         .btn-yt:hover {
             background-color: #cc0000;
@@ -146,17 +149,6 @@
         }
         .btn-toggle:hover {
             background-color: var(--accent-color);
-        }
-        .notice-box {
-            background: #fff8e6;
-            border: 1px solid #ffd591;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #874d00;
-            margin-top: 12px;
-            text-align: center;
-            max-width: 550px;
         }
         .copyright-box {
             background: #eef4f9;
@@ -208,38 +200,34 @@
         <!-- Phần 2: Video -->
         <section class="card">
             <h2>🎬 Nhiệm vụ 2.2: Video ngắn – Ứng dụng công nghệ số trong học tập</h2>
-            <p>Video ngắn giới thiệu lợi ích công nghệ số trong giáo dục, thời lượng ~30 giây, định dạng chuẩn dưới 50MB.</p>
+            <p>Video ngắn giới thiệu lợi ích công nghệ số trong giáo dục, thời lượng dưới 1 phút, sử dụng tài nguyên video/âm thanh chuẩn bản quyền miễn phí.</p>
             
             <div class="video-box">
-                <div class="video-wrapper" id="player-container">
-                    <!-- YouTube Iframe -->
+                <div class="video-wrapper">
+                    <!-- Trình phát Video HTML5 trực tiếp (Mặc định chạy mượt mà ngay trên máy) -->
+                    <video id="player-video" controls autoplay muted playsinline poster="https://i.ytimg.com/vi/_4PuP0NxEi8/hqdefault.jpg">
+                        <source src="videobaocaonew.mp4" type="video/mp4">
+                        Trình duyệt không hỗ trợ video HTML5.
+                    </video>
+
+                    <!-- Khung nhúng YouTube (tùy chọn) -->
                     <iframe 
-                        id="yt-iframe"
+                        id="player-yt"
                         src="https://www.youtube.com/embed/_4PuP0NxEi8?rel=0&modestbranding=1" 
                         title="Video ngắn Lab 5 - Lê Phan Chấn Nguyên" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen>
                     </iframe>
-                    <!-- Offline HTML5 Video (mặc định ẩn) -->
-                    <video id="local-video" controls style="display: none;">
-                        <source src="videobaocaonew.mp4" type="video/mp4">
-                        <source src="videobaocao.mp4" type="video/mp4">
-                        Trình duyệt không hỗ trợ video HTML5.
-                    </video>
                 </div>
 
                 <div class="btn-group">
                     <a href="https://youtu.be/_4PuP0NxEi8?si=SC3E-zICmzWsVCvj" target="_blank" rel="noopener noreferrer" class="btn btn-yt">
-                        ▶ Mở xem trực tiếp trên YouTube
+                        ▶ Xem trực tiếp trên YouTube
                     </a>
-                    <button type="button" class="btn btn-toggle" onclick="togglePlayer()">
-                        🔄 Đổi sang Trình phát Video Offline (MP4)
+                    <button type="button" class="btn btn-toggle" onclick="togglePlayerMode()">
+                        🔄 Đổi nguồn phát (Video Trực tiếp / Nhúng YouTube)
                     </button>
-                </div>
-
-                <div class="notice-box">
-                    💡 <em>Lưu ý:</em> Khi mở file HTML trực tiếp từ ổ đĩa (giao thức <code>file:///</code>), YouTube có thể hiển thị cảnh báo chặn bảo mật trình phát (Lỗi 153). Bạn có thể bấm nút <strong>"Mở xem trực tiếp trên YouTube"</strong> hoặc bấm <strong>"Đổi sang Trình phát Video Offline"</strong> để xem mượt mà!
                 </div>
             </div>
 
@@ -257,22 +245,20 @@
     </div>
 
     <script>
-        let isLocal = false;
-        function togglePlayer() {
-            const ytIframe = document.getElementById('yt-iframe');
-            const localVideo = document.getElementById('local-video');
-            const toggleBtn = document.querySelector('.btn-toggle');
-            if (!isLocal) {
-                ytIframe.style.display = 'none';
-                localVideo.style.display = 'block';
-                toggleBtn.innerText = '🔄 Đổi sang Trình phát YouTube';
-                isLocal = true;
+        let mode = 'video';
+        function togglePlayerMode() {
+            const vid = document.getElementById('player-video');
+            const yt = document.getElementById('player-yt');
+            if (mode === 'video') {
+                vid.pause();
+                vid.style.display = 'none';
+                yt.style.display = 'block';
+                mode = 'yt';
             } else {
-                localVideo.pause();
-                localVideo.style.display = 'none';
-                ytIframe.style.display = 'block';
-                toggleBtn.innerText = '🔄 Đổi sang Trình phát Video Offline (MP4)';
-                isLocal = false;
+                yt.style.display = 'none';
+                vid.style.display = 'block';
+                vid.play();
+                mode = 'video';
             }
         }
     </script>

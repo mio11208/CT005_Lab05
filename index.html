@@ -191,14 +191,38 @@
             background: #000;
             box-shadow: 0 6px 18px rgba(0,0,0,0.15);
         }
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
         .video-wrapper iframe {
             width: 100%;
             height: 100%;
             border: 0;
+            display: none;
         }
-        .video-actions {
-            text-align: center;
-            margin-bottom: 15px;
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-toggle {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+        .btn-toggle:hover {
+            background-color: var(--primary-light);
+        }
+        .btn-view-lab {
+            background-color: #0284c7;
+            color: #ffffff;
+        }
+        .btn-view-lab:hover {
+            background-color: #0369a1;
         }
         /* Info & Copyright Box */
         .info-box {
@@ -237,6 +261,7 @@
                 <span class="badge">Lớp: CT005D06</span>
                 <span class="badge">Học phần: CT005 – Nền tảng Công nghệ số</span>
                 <span class="badge">Đại học Cần Thơ</span>
+                <a href="./Lab5_Ex3.1.html" class="badge" style="text-decoration: none; color: #ffffff; background: rgba(0, 119, 204, 0.45); border-color: rgba(255, 255, 255, 0.5); transition: background 0.2s;" onmouseover="this.style.background='rgba(0, 119, 204, 0.8)'" onmouseout="this.style.background='rgba(0, 119, 204, 0.45)'">🔗 Trang riêng Lab5_Ex3.1.html</a>
             </div>
         </header>
 
@@ -283,32 +308,50 @@
             </div>
         </section>
 
-        <!-- SẢN PHẨM 3: VIDEO YOUTUBE -->
+        <!-- SẢN PHẨM 3: VIDEO ĐA PHƯƠNG TIỆN -->
         <section class="card">
             <div class="card-header">
-                <h2 class="card-title">🎬 Sản phẩm 3: Video ngắn YouTube</h2>
+                <h2 class="card-title">🎬 Sản phẩm 3: Video ngắn đa phương tiện</h2>
                 <span class="card-badge">Nhiệm vụ 2.2</span>
             </div>
             <p class="card-desc">Video ngắn tóm tắt ứng dụng và lợi ích của công nghệ số, thời lượng dưới 1 phút, sử dụng tài nguyên video/âm thanh chuẩn bản quyền miễn phí.</p>
             
-            <div class="video-wrapper">
-                <iframe 
-                    src="https://www.youtube.com/embed/_4PuP0NxEi8?rel=0&modestbranding=1" 
-                    title="Video ngắn Lab 5 - Lê Phan Chấn Nguyên" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen>
-                </iframe>
-            </div>
+            <div class="video-box">
+                <div class="video-wrapper">
+                    <!-- Trình phát Video HTML5 trực tiếp (Mặc định chạy mượt mà cả offline file:/// lẫn online) -->
+                    <video id="player-video-index" controls playsinline poster="https://i.ytimg.com/vi/_4PuP0NxEi8/hqdefault.jpg">
+                        <source src="./videobaocaonew.mp4" type="video/mp4">
+                        Trình duyệt không hỗ trợ video HTML5.
+                    </video>
 
-            <div class="video-actions">
-                <a href="https://youtu.be/_4PuP0NxEi8?si=SC3E-zICmzWsVCvj" target="_blank" rel="noopener noreferrer" class="btn btn-yt">
-                    ▶ Xem trực tiếp trên YouTube
-                </a>
+                    <!-- Khung nhúng YouTube (tùy chọn chuyển đổi) -->
+                    <iframe 
+                        id="player-yt-index"
+                        src="https://www.youtube.com/embed/_4PuP0NxEi8?rel=0&modestbranding=1" 
+                        title="Video ngắn Lab 5 - Lê Phan Chấn Nguyên" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                        style="display: none;">
+                    </iframe>
+                </div>
+
+                <div class="btn-group">
+                    <a href="https://youtu.be/_4PuP0NxEi8?si=SC3E-zICmzWsVCvj" target="_blank" rel="noopener noreferrer" class="btn btn-yt">
+                        ▶ Xem trực tiếp trên YouTube
+                    </a>
+                    <button type="button" class="btn btn-toggle" onclick="toggleIndexPlayerMode()">
+                        🔄 Đổi nguồn phát (Video Trực tiếp / Nhúng YouTube)
+                    </button>
+                    <a href="./Lab5_Ex3.1.html" class="btn btn-view-lab">
+                        🌐 Mở trang Lab5_Ex3.1.html
+                    </a>
+                </div>
             </div>
 
             <div class="info-box">
-                <strong>Ghi chú bản quyền:</strong> <em>Video tạo bởi CapCut, tài liệu từ Pexels/FreeSound (CC0).</em>
+                <p><strong>Thông tin bản quyền & Công cụ:</strong> <em>Video tạo bởi CapCut, tài liệu từ Pexels/FreeSound (CC0).</em></p>
+                <p style="margin-top: 8px; font-size: 13px; color: #475569;">💡 <em>Lưu ý:</em> Khi mở trang web trực tiếp từ máy tính (giao thức <code>file:///</code>), YouTube có cơ chế bảo mật chặn nhúng (Lỗi 153). Hệ thống đã tự động kích hoạt <strong>Trình phát Video trực tiếp (HTML5)</strong> để bạn có thể xem video mượt mà, sắc nét hoặc bấm nút <strong>"Xem trực tiếp trên YouTube"</strong>.</p>
             </div>
         </section>
 
@@ -318,5 +361,24 @@
             <p>Học phần CT005 Nền tảng Công nghệ số – Trường Đại học Cần Thơ.</p>
         </footer>
     </div>
+
+    <script>
+        let indexMode = 'video';
+        function toggleIndexPlayerMode() {
+            const vid = document.getElementById('player-video-index');
+            const yt = document.getElementById('player-yt-index');
+            if (indexMode === 'video') {
+                vid.pause();
+                vid.style.display = 'none';
+                yt.style.display = 'block';
+                indexMode = 'yt';
+            } else {
+                yt.style.display = 'none';
+                vid.style.display = 'block';
+                vid.play().catch(e => console.log(e));
+                indexMode = 'video';
+            }
+        }
+    </script>
 </body>
 </html>
